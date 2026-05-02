@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ElevenEighteen Solutions LLC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              foreground: {
+                100:'#F4F6F2',150:'#EAEDE7',200:'#E0E4DC',250:'#D2D7CD',300:'#B8BFB2',350:'#969E8E',400:'#7A8372',450:'#5F6857',550:'#4A5243',600:'#3E4639',650:'#333B2E',700:'#2A3125',750:'#21271D',800:'#1A1A1A',850:'#141614',900:'#111111'
+              },
+              background: {
+                100:'#F4F6F2',150:'#EAEDE7',200:'#E0E4DC',250:'#D2D7CD',300:'#B8BFB2',350:'#969E8E',400:'#7A8372',450:'#5F6857'
+              },
+              accent: {
+                100:'#F4F6F2',150:'#E8EDE5',200:'#D8E0D3',250:'#C5D1BF',300:'#A8B89F',350:'#8B9E82',400:'#7A8E70',450:'#6B4F3A',550:'#5C4330',600:'#4D3827',650:'#3E2D1F',700:'#2F2218',750:'#251A12',800:'#1C130D',850:'#140D09',900:'#0C0805'
+              },
+              stroke: {
+                100:'#F4F6F2',150:'#E8EDE5',200:'#D8E0D3',250:'#C5D1BF',300:'#A8B89F',350:'#8B9E82',400:'#7A8E70',450:'#5F7358',550:'#4E6248',600:'#3E5038',650:'#334230',700:'#2A3625'
+              },
+              muted: {
+                100:'#F4F6F2',150:'#E8EDE5',200:'#D8E0D3',250:'#C5D1BF',300:'#A8B89F',350:'#8B9E82',400:'#7A8E70',450:'#5F7358',550:'#4E6248',600:'#3E5038',650:'#334230',700:'#2A3625',750:'#21291D',800:'#1A2016',850:'#131810',900:'#0D100B'
+              },
+              'system-green':{200:'#baeec0',300:'#97dfa1',350:'#6cc57b',400:'#32ad52',550:'#01712b',600:'#016826',750:'#093815'},
+              'system-red':{200:'#ffe4e1',300:'#ffb5ae',350:'#f98981',400:'#e7615b',550:'#ac1922',600:'#9d1920',650:'#821b1e'},
+              'system-yellow':{100:'#fffbf4',300:'#f3c357',350:'#d6a632',600:'#6c5001'},
+              'system-orange':{100:'#fffbf8',300:'#ffba81',350:'#ed974a',400:'#d57702',550:'#8a4b01',650:'#6b3900'},
+              'system-blue':{100:'#f5f8fd',200:'#dbeafe',300:'#adcaf6',350:'#7eaae9',400:'#5489d6',550:'#2f5ea3',600:'#274f8c',750:'#1e3a8a'},
+              'system-purple':{100:'#f9f7fd',200:'#ece3f6',300:'#d4c0ec',350:'#b995dd',400:'#9c6ac9',550:'#6f3da0',600:'#603489',750:'#402360'},
+              'system-teal':{100:'#effefb',200:'#ccf5ed',300:'#88e5d3',350:'#52d1b9',400:'#26b89d',550:'#138770',600:'#0f7561',750:'#094d40'},
+              brown: {
+                50:'#FAF6F2',100:'#F0E8DF',200:'#DFD0C1',300:'#C4AA8E',400:'#A0825A',450:'#8B6914',500:'#6B4F3A',600:'#5C4330',700:'#4D3827',800:'#3E2D1F',900:'#2F2218'
+              },
+              sage: {
+                50:'#F4F6F2',100:'#E8EDE5',200:'#D8E0D3',300:'#C5D1BF',400:'#A8B89F',500:'#8B9E82',600:'#7A8E70',700:'#5F7358',800:'#3E5038',900:'#2A3625'
+              }
+            },
+            borderRadius: {'3xl':'1.25rem','4xl':'1.5rem','5xl':'1.75rem','6xl':'2rem'},
+            fontFamily: {
+              display: ['DM Serif Display', 'serif'],
+              sans: ['Inter', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Inter', sans-serif; background-color: #EAEDE7; color: #1A1A1A; margin: 0; }
+      .tabular-nums { font-variant-numeric: tabular-nums; }
+      .fade-section { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .fade-section.visible { opacity: 1; transform: translateY(0); }
+      .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; }
+      .faq-answer.open { max-height: 500px; }
+      .nav-scrolled { background-color: rgba(26,26,26,0.97); backdrop-filter: blur(8px); box-shadow: 0 2px 16px rgba(0,0,0,0.15); }
+      .nav-scrolled .nav-logo-text, .nav-scrolled .nav-link { color: #E8EDE5 !important; }
+      .nav-scrolled .nav-link:hover { color: #C5D1BF !important; }
+      .nav-scrolled .nav-icon { color: #A8B89F !important; }
+      .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); }
+    </style>
+</head>
+<body data-id="0">
+    <app-icon data-id="1" hidden data-icon="briefcase-business" data-palette="Green"></app-icon>
+
+    <!-- Navigation -->
+    <nav data-id="2" id="main-nav" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
+        <div data-id="3" class="max-w-7xl mx-auto px-5 md:px-8 py-4 flex items-center justify-between">
+            <a data-id="4" href="#" class="flex items-center gap-2.5">
+                <i data-id="5" data-lucide="briefcase-business" class="nav-icon w-6 h-6 text-sage-700"></i>
+                <span data-id="6" class="nav-logo-text font-display text-lg md:text-xl text-foreground-900">ElevenEighteen Solutions LLC</span>
+            </a>
+            <div data-id="7" class="hidden md:flex items-center gap-8">
+                <a data-id="8" href="#services" class="nav-link text-sm font-medium text-foreground-600 hover:text-brown-500 transition-colors">Services</a>
+                <a data-id="9" href="#pricing" class="nav-link text-sm font-medium text-foreground-600 hover:text-brown-500 transition-colors">Pricing</a>
+                <a data-id="10" href="#why-us" class="nav-link text-sm font-medium text-foreground-600 hover:text-brown-500 transition-colors">Why Us</a>
+                <a data-id="11" href="#contact" class="text-sm font-medium text-white bg-brown-500 hover:bg-brown-600 px-5 py-2.5 rounded-xl transition-colors">Contact Us</a>
+            </div>
+            <button data-id="12" id="mobile-menu-btn" class="md:hidden p-2 text-foreground-900">
+                <i data-id="13" data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div data-id="14" id="mobile-menu" class="hidden fixed inset-0 bg-sage-50 z-50 flex flex-col p-6">
+        <div data-id="15" class="flex items-center justify-between mb-10">
+            <div data-id="16" class="flex items-center gap-2.5">
+                <i data-id="17" data-lucide="briefcase-business" class="w-6 h-6 text-sage-700"></i>
+                <span data-id="18" class="font-display text-lg text-foreground-900">ElevenEighteen</span>
+            </div>
+            <button data-id="19" id="mobile-menu-close" class="p-2 text-foreground-900">
+                <i data-id="20" data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div data-id="21" class="flex flex-col gap-4">
+            <a data-id="22" href="#services" class="mobile-nav-link text-lg font-medium text-foreground-900 py-3 px-4 rounded-xl hover:bg-sage-100 transition-colors">Services</a>
+            <a data-id="23" href="#pricing" class="mobile-nav-link text-lg font-medium text-foreground-900 py-3 px-4 rounded-xl hover:bg-sage-100 transition-colors">Pricing</a>
+            <a data-id="24" href="#why-us" class="mobile-nav-link text-lg font-medium text-foreground-900 py-3 px-4 rounded-xl hover:bg-sage-100 transition-colors">Why Us</a>
+            <a data-id="25" href="#contact" class="mobile-nav-link text-lg font-medium text-white bg-brown-500 text-center py-3 px-4 rounded-xl hover:bg-brown-600 transition-colors">Contact Us</a>
+        </div>
+    </div>
+
+    <main data-id="26">
+        <!-- Hero Section -->
+        <section data-id="27" class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden" style="background: linear-gradient(135deg, #F4F6F2 0%, #E8EDE5 30%, #C5D1BF 60%, #EAEDE7 100%);">
+            <div data-id="28" class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 1px 1px, #3E5038 1px, transparent 0); background-size: 32px 32px;"></div>
+            <div data-id="29" class="relative max-w-4xl mx-auto px-5 md:px-8 text-center">
+                <h1 data-id="30" class="font-display text-3xl md:text-5xl lg:text-6xl text-foreground-900 leading-tight mb-6">Professional Support, Tailored to Your Business</h1>
+                <p data-id="31" class="text-base md:text-lg text-foreground-600 max-w-2xl mx-auto mb-10 leading-relaxed">From admin tasks to full-scale event planning — flexible pricing designed to grow with you.</p>
+                <a data-id="32" href="#services" class="inline-flex items-center gap-2 bg-brown-500 hover:bg-brown-600 text-white font-medium px-7 py-3.5 rounded-xl transition-colors text-sm md:text-base">
+                    View Our Services
+                    <i data-id="33" data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Services Overview -->
+        <section data-id="34" id="services" class="py-16 md:py-24 bg-sage-50">
+            <div data-id="35" class="max-w-7xl mx-auto px-5 md:px-8">
+                <div data-id="36" class="text-center mb-14">
+                    <p data-id="37" class="text-xs font-medium uppercase tracking-widest text-sage-700 mb-3">What We Offer</p>
+                    <h2 data-id="38" class="font-display text-2xl md:text-4xl text-foreground-900 mb-4">Our Services</h2>
+                    <p data-id="39" class="text-foreground-600 max-w-xl mx-auto">Comprehensive support across every function of your business. Choose what you need — we handle the rest.</p>
+                </div>
+                <div data-id="40" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                    <!-- Service Card 1 -->
+                    <div data-id="41" class="fade-section bg-white rounded-2xl p-6 flex flex-col items-start hover:shadow-md transition-shadow duration-300">
+                        <div data-id="42" class="w-12 h-12 rounded-xl bg-sage-100 flex items-center justify-center mb-4">
+                            <i data-id="43" data-lucide="clipboard-list" class="w-6 h-6 text-sage-700"></i>
+                        </div>
+                        <h3 data-id="44" class="font-semibold text-foreground-900 mb-1.5">Administrative Support</h3>
+                        <p data-id="45" class="text-sm text-foreground-600 mb-5 leading-relaxed">Streamline your daily operations</p>
+                        <a data-id="46" href="#pricing-admin" class="mt-auto text-sm font-medium text-brown-500 hover:text-brown-600 flex items-center gap-1 transition-colors">View Pricing <i data-id="47" data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div data-id="48" class="fade-section bg-white rounded-2xl p-6 flex flex-col items-start hover:shadow-md transition-shadow duration-300">
+                        <div data-id="49" class="w-12 h-12 rounded-xl bg-sage-100 flex items-center justify-center mb-4">
+                            <i data-id="50" data-lucide="settings" class="w-6 h-6 text-sage-700"></i>
+                        </div>
+                        <h3 data-id="51" class="font-semibold text-foreground-900 mb-1.5">Business Operations</h3>
+                        <p data-id="52" class="text-sm text-foreground-600 mb-5 leading-relaxed">Keep your business running smoothly</p>
+                        <a data-id="53" href="#pricing-ops" class="mt-auto text-sm font-medium text-brown-500 hover:text-brown-600 flex items-center gap-1 transition-colors">View Pricing <i data-id="54" data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div data-id="55" class="fade-section bg-white rounded-2xl p-6 flex flex-col items-start hover:shadow-md transition-shadow duration-300">
+                        <div data-id="56" class="w-12 h-12 rounded-xl bg-sage-100 flex items-center justify-center mb-4">
+                            <i data-id="57" data-lucide="megaphone" class="w-6 h-6 text-sage-700"></i>
+                        </div>
+                        <h3 data-id="58" class="font-semibold text-foreground-900 mb-1.5">Marketing Support</h3>
+                        <p data-id="59" class="text-sm text-foreground-600 mb-5 leading-relaxed">Amplify your brand's reach</p>
+                        <a data-id="60" href="#pricing-marketing" class="mt-auto text-sm font-medium text-brown-500 hover:text-brown-600 flex items-center gap-1 transition-colors">View Pricing <i data-id="61" data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+                    </div>
+                    <!-- Service Card 4 -->
+                    <div data-id="62" class="fade-section bg-white rounded-2xl p-6 flex flex-col items-start hover:shadow-md transition-shadow duration-300">
+                        <div data-id="63" class="w-12 h-12 rounded-xl bg-sage-100 flex items-center justify-center mb-4">
+                            <i data-id="64" data-lucide="headset" class="w-6 h-6 text-sage-700"></i>
+                        </div>
+                        <h3 data-id="65" class="font-semibold text-foreground-900 mb-1.5">Customer Support</h3>
+                        <p data-id="66" class="text-sm text-foreground-600 mb-5 leading-relaxed">Delight your clients at every touchpoint</p>
+                        <a data-id="67" href="#pricing-customer" class="mt-auto text-sm font-medium text-brown-500 hover:text-brown-600 flex items-center gap-1 transition-colors">View Pricing <i data-id="68" data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+                    </div>
+                    <!-- Service Card 5 -->
+                    <div data-id="69" class="fade-section bg-white rounded-2xl p-6 flex flex-col items-start hover:shadow-md transition-shadow duration-300">
+                        <div data-id="70" class="w-12 h-12 rounded-xl bg-sage-100 flex items-center justify-center mb-4">
+                            <i data-id="71" data-lucide="calendar-check" class="w-6 h-6 text-sage-700"></i>
+                        </div>
+                        <h3 data-id="72" class="font-semibold text-foreground-900 mb-1.5">Event Planning</h3>
+                        <p data-id="73" class="text-sm text-foreground-600 mb-5 leading-relaxed">Memorable events, flawlessly executed</p>
+                        <a data-id="74" href="#pricing-event" class="mt-auto text-sm font-medium text-brown-500 hover:text-brown-600 flex items-center gap-1 transition-colors">View Pricing <i data-id="75" data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+                    </div>
+                    <!-- Service Card 6 -->
+                    <div data-id="76" class="fade-section bg-white rounded-2xl p-6 flex flex-col items-start hover:shadow-md transition-shadow duration-300">
+                        <div data-id="77" class="w-12 h-12 rounded-xl bg-sage-100 flex items-center justify-center mb-4">
+                            <i data-id="78" data-lucide="users" class="w-6 h-6 text-sage-700"></i>
+                        </div>
+                        <h3 data-id="79" class="font-semibold text-foreground-900 mb-1.5">HR Coordination</h3>
+                        <p data-id="80" class="text-sm text-foreground-600 mb-5 leading-relaxed">Build and support your team</p>
+                        <a data-id="81" href="#pricing-hr" class="mt-auto text-sm font-medium text-brown-500 hover:text-brown-600 flex items-center gap-1 transition-colors">View Pricing <i data-id="82" data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+                    </div>
+                    <!-- Service Card 7 -->
+                    <div data-id="83" class="fade-section bg-white rounded-2xl p-6 flex flex-col items-start hover:shadow-md transition-shadow duration-300">
+                        <div data-id="84" class="w-12 h-12 rounded-xl bg-sage-100 flex items-center justify-center mb-4">
+                            <i data-id="85" data-lucide="file-text" class="w-6 h-6 text-sage-700"></i>
+                        </div>
+                        <h3 data-id="86" class="font-semibold text-foreground-900 mb-1.5">Custom Clerical</h3>
+                        <p data-id="87" class="text-sm text-foreground-600 mb-5 leading-relaxed">Specialized admin, your way</p>
+                        <a data-id="88" href="#pricing-clerical" class="mt-auto text-sm font-medium text-brown-500 hover:text-brown-600 flex items-center gap-1 transition-colors">View Pricing <i data-id="89" data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section data-id="90" id="pricing" class="py-16 md:py-24 bg-sage-100">
+            <div data-id="91" class="max-w-7xl mx-auto px-5 md:px-8">
+                <div data-id="92" class="text-center mb-10">
+                    <p data-id="93" class="text-xs font-medium uppercase tracking-widest text-sage-700 mb-3">Transparent Pricing</p>
+                    <h2 data-id="94" class="font-display text-2xl md:text-4xl text-foreground-900 mb-4">Plans & Pricing</h2>
+                    <p data-id="95" class="text-foreground-600 max-w-xl mx-auto mb-8">Flexible options for every stage of growth. All plans can be customized to fit your needs.</p>
+                </div>
+
+                <!-- Category Filter Buttons -->
+                <div data-id="96" class="flex flex-wrap justify-center gap-2 mb-14" id="category-filters">
+                    <button data-id="97" data-filter="all" class="cat-filter-btn active text-sm font-medium px-4 py-2 rounded-xl bg-brown-500 text-white transition-colors">All Services</button>
+                    <button data-id="98" data-filter="admin" class="cat-filter-btn text-sm font-medium px-4 py-2 rounded-xl bg-white text-foreground-900 hover:bg-sage-200 transition-colors">Administrative</button>
+                    <button data-id="99" data-filter="ops" class="cat-filter-btn text-sm font-medium px-4 py-2 rounded-xl bg-white text-foreground-900 hover:bg-sage-200 transition-colors">Operations</button>
+                    <button data-id="100" data-filter="marketing" class="cat-filter-btn text-sm font-medium px-4 py-2 rounded-xl bg-white text-foreground-900 hover:bg-sage-200 transition-colors">Marketing</button>
+                    <button data-id="101" data-filter="customer" class="cat-filter-btn text-sm font-medium px-4 py-2 rounded-xl bg-white text-foreground-900 hover:bg-sage-200 transition-colors">Customer</button>
+                    <button data-id="102" data-filter="event" class="cat-filter-btn text-sm font-medium px-4 py-2 rounded-xl bg-white text-foreground-900 hover:bg-sage-200 transition-colors">Events</button>
+                    <button data-id="103" data-filter="hr" class="cat-filter-btn text-sm font-medium px-4 py-2 rounded-xl bg-white text-foreground-900 hover:bg-sage-200 transition-colors">HR</button>
+                    <button data-id="104" data-filter="clerical" class="cat-filter-btn text-sm font-medium px-4 py-2 rounded-xl bg-white text-foreground-900 hover:bg-sage-200 transition-colors">Clerical</button>
+                </div>
+
+                <!-- Administrative Support Pricing -->
+                <div data-id="105" id="pricing-admin" data-category="admin" class="pricing-category fade-section mb-16">
+                    <div data-id="106" class="flex items-center gap-3 mb-4">
+                        <i data-id="107" data-lucide="clipboard-list" class="w-6 h-6 text-sage-700"></i>
+                        <h3 data-id="108" class="font-display text-xl md:text-2xl text-foreground-900">Administrative Support</h3>
+                    </div>
+                    <div data-id="109" class="flex flex-wrap gap-2 mb-8">
+                        <span data-id="110" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Email & Calendar</span>
+                        <span data-id="111" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Travel Planning</span>
+                        <span data-id="112" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Document Creation</span>
+                        <span data-id="113" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Data Entry</span>
+                        <span data-id="114" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Scheduling</span>
+                    </div>
+                    <div data-id="115" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                        <div data-id="116" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="117" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Hourly</p>
+                            <p data-id="118" class="text-2xl font-bold text-foreground-900 tabular-nums">$35–$45</p>
+                            <p data-id="119" class="text-sm text-foreground-450 mt-1">/hour</p>
+                        </div>
+                        <div data-id="120" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="121" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">10 hrs/mo</p>
+                            <p data-id="122" class="text-2xl font-bold text-foreground-900 tabular-nums">$350</p>
+                            <p data-id="123" class="text-sm text-foreground-450 mt-1">/month</p>
+                        </div>
+                        <div data-id="124" class="bg-white rounded-2xl p-6 text-center relative border-2 border-brown-300">
+                            <span data-id="125" class="popular-badge bg-brown-500 text-white text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap">Most Popular</span>
+                            <p data-id="126" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">20 hrs/mo</p>
+                            <p data-id="127" class="text-2xl font-bold text-foreground-900 tabular-nums">$650</p>
+                            <p data-id="128" class="text-sm text-foreground-450 mt-1">/month</p>
+                        </div>
+                        <div data-id="129" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="130" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">40 hrs/mo</p>
+                            <p data-id="131" class="text-2xl font-bold text-foreground-900 tabular-nums">$1,250</p>
+                            <p data-id="132" class="text-sm text-foreground-450 mt-1">/month</p>
+                        </div>
+                        <div data-id="133" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="134" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Project-Based</p>
+                            <p data-id="135" class="text-2xl font-bold text-foreground-900 tabular-nums">$150+</p>
+                            <p data-id="136" class="text-sm text-foreground-450 mt-1">per project</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Operations Pricing -->
+                <div data-id="137" id="pricing-ops" data-category="ops" class="pricing-category fade-section mb-16">
+                    <div data-id="138" class="flex items-center gap-3 mb-4">
+                        <i data-id="139" data-lucide="settings" class="w-6 h-6 text-sage-700"></i>
+                        <h3 data-id="140" class="font-display text-xl md:text-2xl text-foreground-900">Business Operations</h3>
+                    </div>
+                    <div data-id="141" class="flex flex-wrap gap-2 mb-8">
+                        <span data-id="142" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">CRM Updates</span>
+                        <span data-id="143" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Invoicing & Billing</span>
+                        <span data-id="144" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Vendor Coordination</span>
+                        <span data-id="145" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">SOP Creation</span>
+                        <span data-id="146" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Project Coordination</span>
+                    </div>
+                    <div data-id="147" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div data-id="148" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="149" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Hourly</p>
+                            <p data-id="150" class="text-2xl font-bold text-foreground-900 tabular-nums">$40–$55</p>
+                            <p data-id="151" class="text-sm text-foreground-450 mt-1">/hour</p>
+                        </div>
+                        <div data-id="152" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="153" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">20 hrs/mo</p>
+                            <p data-id="154" class="text-2xl font-bold text-foreground-900 tabular-nums">$800</p>
+                            <p data-id="155" class="text-sm text-foreground-450 mt-1">/month</p>
+                        </div>
+                        <div data-id="156" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="157" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">40 hrs/mo</p>
+                            <p data-id="158" class="text-2xl font-bold text-foreground-900 tabular-nums">$1,500</p>
+                            <p data-id="159" class="text-sm text-foreground-450 mt-1">/month</p>
+                        </div>
+                        <div data-id="160" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="161" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Project-Based</p>
+                            <p data-id="162" class="text-2xl font-bold text-foreground-900 tabular-nums">$300+</p>
+                            <p data-id="163" class="text-sm text-foreground-450 mt-1">SOP / system setup</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketing Support Pricing -->
+                <div data-id="164" id="pricing-marketing" data-category="marketing" class="pricing-category fade-section mb-16">
+                    <div data-id="165" class="flex items-center gap-3 mb-4">
+                        <i data-id="166" data-lucide="megaphone" class="w-6 h-6 text-sage-700"></i>
+                        <h3 data-id="167" class="font-display text-xl md:text-2xl text-foreground-900">Marketing Support</h3>
+                    </div>
+                    <div data-id="168" class="flex flex-wrap gap-2 mb-8">
+                        <span data-id="169" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Social Media Scheduling</span>
+                        <span data-id="170" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Content Drafting</span>
+                        <span data-id="171" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Canva Graphics</span>
+                        <span data-id="172" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Newsletter Management</span>
+                    </div>
+                    <div data-id="173" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                        <div data-id="174" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="175" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Hourly</p>
+                            <p data-id="176" class="text-2xl font-bold text-foreground-900 tabular-nums">$40–$50</p>
+                            <p data-id="177" class="text-sm text-foreground-450 mt-1">/hour</p>
+                        </div>
+                        <div data-id="178" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="179" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Social Only</p>
+                            <p data-id="180" class="text-2xl font-bold text-foreground-900 tabular-nums">$350</p>
+                            <p data-id="181" class="text-sm text-foreground-450 mt-1">/month</p>
+                        </div>
+                        <div data-id="182" class="bg-white rounded-2xl p-6 text-center relative border-2 border-brown-300">
+                            <span data-id="183" class="popular-badge bg-brown-500 text-white text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap">Most Popular</span>
+                            <p data-id="184" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Content + Scheduling</p>
+                            <p data-id="185" class="text-2xl font-bold text-foreground-900 tabular-nums">$650</p>
+                            <p data-id="186" class="text-sm text-foreground-450 mt-1">/month</p>
+                        </div>
+                        <div data-id="187" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="188" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Full Support</p>
+                            <p data-id="189" class="text-2xl font-bold text-foreground-900 tabular-nums">$1,200</p>
+                            <p data-id="190" class="text-sm text-foreground-450 mt-1">/month</p>
+                        </div>
+                        <div data-id="191" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="192" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Project-Based</p>
+                            <p data-id="193" class="text-2xl font-bold text-foreground-900 tabular-nums">$250+</p>
+                            <p data-id="194" class="text-sm text-foreground-450 mt-1">campaign setup</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Support Pricing -->
+                <div data-id="195" id="pricing-customer" data-category="customer" class="pricing-category fade-section mb-16">
+                    <div data-id="196" class="flex items-center gap-3 mb-4">
+                        <i data-id="197" data-lucide="headset" class="w-6 h-6 text-sage-700"></i>
+                        <h3 data-id="198" class="font-display text-xl md:text-2xl text-foreground-900">Customer Support</h3>
+                    </div>
+                    <div data-id="199" class="flex flex-wrap gap-2 mb-8">
+                        <span data-id="200" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Live Chat</span>
+                        <span data-id="201" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Ticket Management</span>
+                        <span data-id="202" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Client Onboarding</span>
+                    </div>
+                    <div data-id="203" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div data-id="204" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="205" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Hourly</p>
+                            <p data-id="206" class="text-2xl font-bold text-foreground-900 tabular-nums">$35–$45</p>
+                            <p data-id="207" class="text-sm text-foreground-450 mt-1">/hour</p>
+                        </div>
+                        <div data-id="208" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="209" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">10 hrs/week</p>
+                            <p data-id="210" class="text-2xl font-bold text-foreground-900 tabular-nums">$350</p>
+                            <p data-id="211" class="text-sm text-foreground-450 mt-1">/week</p>
+                        </div>
+                        <div data-id="212" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="213" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">20 hrs/week</p>
+                            <p data-id="214" class="text-2xl font-bold text-foreground-900 tabular-nums">$650</p>
+                            <p data-id="215" class="text-sm text-foreground-450 mt-1">/week</p>
+                        </div>
+                        <div data-id="216" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="217" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Per Onboarding</p>
+                            <p data-id="218" class="text-2xl font-bold text-foreground-900 tabular-nums">$75–$150</p>
+                            <p data-id="219" class="text-sm text-foreground-450 mt-1">per workflow</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Planning Pricing -->
+                <div data-id="220" id="pricing-event" data-category="event" class="pricing-category fade-section mb-16">
+                    <div data-id="221" class="flex items-center gap-3 mb-4">
+                        <i data-id="222" data-lucide="calendar-check" class="w-6 h-6 text-sage-700"></i>
+                        <h3 data-id="223" class="font-display text-xl md:text-2xl text-foreground-900">Event Planning</h3>
+                    </div>
+                    <div data-id="224" class="flex flex-wrap gap-2 mb-8">
+                        <span data-id="225" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Corporate Events</span>
+                        <span data-id="226" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Virtual Event Setup</span>
+                        <span data-id="227" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Vendor Sourcing</span>
+                        <span data-id="228" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Logistics</span>
+                        <span data-id="229" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Post-Event Docs</span>
+                    </div>
+                    <div data-id="230" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div data-id="231" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="232" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Hourly</p>
+                            <p data-id="233" class="text-2xl font-bold text-foreground-900 tabular-nums">$50–$75</p>
+                            <p data-id="234" class="text-sm text-foreground-450 mt-1">/hour</p>
+                        </div>
+                        <div data-id="235" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="236" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Virtual Event</p>
+                            <p data-id="237" class="text-2xl font-bold text-foreground-900 tabular-nums">$500–$1,200</p>
+                            <p data-id="238" class="text-sm text-foreground-450 mt-1">per event</p>
+                        </div>
+                        <div data-id="239" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="240" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Corporate Event</p>
+                            <p data-id="241" class="text-2xl font-bold text-foreground-900 tabular-nums">$1,500–$4,000</p>
+                            <p data-id="242" class="text-sm text-foreground-450 mt-1">per event</p>
+                        </div>
+                        <div data-id="243" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="244" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Add-Ons</p>
+                            <p data-id="245" class="text-lg font-semibold text-foreground-900">Custom Quote</p>
+                            <p data-id="246" class="text-xs text-foreground-450 mt-1.5 leading-relaxed">Vendor mgmt, run-of-show, post-event reporting</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HR Coordination Pricing -->
+                <div data-id="247" id="pricing-hr" data-category="hr" class="pricing-category fade-section mb-16">
+                    <div data-id="248" class="flex items-center gap-3 mb-4">
+                        <i data-id="249" data-lucide="users" class="w-6 h-6 text-sage-700"></i>
+                        <h3 data-id="250" class="font-display text-xl md:text-2xl text-foreground-900">HR Coordination Services</h3>
+                    </div>
+                    <div data-id="251" class="flex flex-wrap gap-2 mb-8">
+                        <span data-id="252" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">New Hire Onboarding</span>
+                        <span data-id="253" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Interview Scheduling</span>
+                        <span data-id="254" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Policy Formatting</span>
+                        <span data-id="255" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">File Organization</span>
+                        <span data-id="256" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Training Coordination</span>
+                    </div>
+                    <div data-id="257" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div data-id="258" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="259" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Hourly</p>
+                            <p data-id="260" class="text-2xl font-bold text-foreground-900 tabular-nums">$45–$60</p>
+                            <p data-id="261" class="text-sm text-foreground-450 mt-1">/hour</p>
+                        </div>
+                        <div data-id="262" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="263" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Per Hire Onboarding</p>
+                            <p data-id="264" class="text-2xl font-bold text-foreground-900 tabular-nums">$200–$400</p>
+                            <p data-id="265" class="text-sm text-foreground-450 mt-1">per hire</p>
+                        </div>
+                        <div data-id="266" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="267" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Monthly HR</p>
+                            <p data-id="268" class="text-2xl font-bold text-foreground-900 tabular-nums">$1,000+</p>
+                            <p data-id="269" class="text-sm text-foreground-450 mt-1">/month</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Clerical Pricing -->
+                <div data-id="270" id="pricing-clerical" data-category="clerical" class="pricing-category fade-section">
+                    <div data-id="271" class="flex items-center gap-3 mb-4">
+                        <i data-id="272" data-lucide="file-text" class="w-6 h-6 text-sage-700"></i>
+                        <h3 data-id="273" class="font-display text-xl md:text-2xl text-foreground-900">Custom Clerical Needs</h3>
+                    </div>
+                    <div data-id="274" class="flex flex-wrap gap-2 mb-8">
+                        <span data-id="275" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Document Formatting</span>
+                        <span data-id="276" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Spreadsheet Creation</span>
+                        <span data-id="277" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Research & Data</span>
+                        <span data-id="278" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Form Creation</span>
+                        <span data-id="279" class="text-xs font-medium px-3 py-1 rounded-full bg-sage-200 text-sage-800">Custom Admin</span>
+                    </div>
+                    <div data-id="280" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div data-id="281" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="282" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Hourly</p>
+                            <p data-id="283" class="text-2xl font-bold text-foreground-900 tabular-nums">$35–$50</p>
+                            <p data-id="284" class="text-sm text-foreground-450 mt-1">/hour</p>
+                        </div>
+                        <div data-id="285" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="286" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Project-Based</p>
+                            <p data-id="287" class="text-2xl font-bold text-foreground-900 tabular-nums">$150–$1,000</p>
+                            <p data-id="288" class="text-sm text-foreground-450 mt-1">scope dependent</p>
+                        </div>
+                        <div data-id="289" class="bg-white rounded-2xl p-6 text-center">
+                            <p data-id="290" class="text-xs font-medium uppercase tracking-widest text-foreground-450 mb-3">Ongoing Support</p>
+                            <p data-id="291" class="text-lg font-semibold text-foreground-900">Custom Retainers</p>
+                            <p data-id="292" class="text-sm text-foreground-450 mt-1">tailored to you</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section data-id="293" id="why-us" class="py-16 md:py-24 bg-sage-50">
+            <div data-id="294" class="max-w-7xl mx-auto px-5 md:px-8">
+                <div data-id="295" class="text-center mb-14">
+                    <p data-id="296" class="text-xs font-medium uppercase tracking-widest text-sage-700 mb-3">The Difference</p>
+                    <h2 data-id="297" class="font-display text-2xl md:text-4xl text-foreground-900 mb-4">Why Choose Us</h2>
+                </div>
+                <div data-id="298" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div data-id="299" class="fade-section bg-white rounded-2xl p-7 text-center">
+                        <div data-id="300" class="w-14 h-14 rounded-2xl bg-sage-100 flex items-center justify-center mx-auto mb-4">
+                            <i data-id="301" data-lucide="sliders-horizontal" class="w-7 h-7 text-sage-700"></i>
+                        </div>
+                        <h3 data-id="302" class="font-semibold text-foreground-900 mb-2">Flexible Plans</h3>
+                        <p data-id="303" class="text-sm text-foreground-600 leading-relaxed">Scale up or down anytime, no long-term contracts required.</p>
+                    </div>
+                    <div data-id="304" class="fade-section bg-white rounded-2xl p-7 text-center">
+                        <div data-id="305" class="w-14 h-14 rounded-2xl bg-sage-100 flex items-center justify-center mx-auto mb-4">
+                            <i data-id="306" data-lucide="heart-handshake" class="w-7 h-7 text-sage-700"></i>
+                        </div>
+                        <h3 data-id="307" class="font-semibold text-foreground-900 mb-2">Dedicated Support</h3>
+                        <p data-id="308" class="text-sm text-foreground-600 leading-relaxed">A real person who understands your business.</p>
+                    </div>
+                    <div data-id="309" class="fade-section bg-white rounded-2xl p-7 text-center">
+                        <div data-id="310" class="w-14 h-14 rounded-2xl bg-sage-100 flex items-center justify-center mx-auto mb-4">
+                            <i data-id="311" data-lucide="trophy" class="w-7 h-7 text-sage-700"></i>
+                        </div>
+                        <h3 data-id="312" class="font-semibold text-foreground-900 mb-2">Proven Results</h3>
+                        <p data-id="313" class="text-sm text-foreground-600 leading-relaxed">Trusted by businesses of all sizes.</p>
+                    </div>
+                    <div data-id="314" class="fade-section bg-white rounded-2xl p-7 text-center">
+                        <div data-id="315" class="w-14 h-14 rounded-2xl bg-sage-100 flex items-center justify-center mx-auto mb-4">
+                            <i data-id="316" data-lucide="zap" class="w-7 h-7 text-sage-700"></i>
+                        </div>
+                        <h3 data-id="317" class="font-semibold text-foreground-900 mb-2">Quick Onboarding</h3>
+                        <p data-id="318" class="text-sm text-foreground-600 leading-relaxed">Get started in as little as 48 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section data-id="319" id="faq" class="py-16 md:py-24 bg-sage-100">
+            <div data-id="320" class="max-w-3xl mx-auto px-5 md:px-8">
+                <div data-id="321" class="text-center mb-14">
+                    <p data-id="322" class="text-xs font-medium uppercase tracking-widest text-sage-700 mb-3">Questions?</p>
+                    <h2 data-id="323" class="font-display text-2xl md:text-4xl text-foreground-900 mb-4">Frequently Asked Questions</h2>
+                </div>
+                <div data-id="324" class="space-y-3">
+                    <div data-id="325" class="faq-item bg-white rounded-2xl">
+                        <button data-id="326" class="faq-toggle w-full flex items-center justify-between p-5 md:p-6 text-left cursor-pointer">
+                            <span data-id="327" class="font-medium text-foreground-900 pr-4">How do monthly retainers work?</span>
+                            <i data-id="328" data-lucide="chevron-down" class="w-5 h-5 text-brown-500 flex-shrink-0 faq-chevron transition-transform duration-300"></i>
+                        </button>
+                        <div data-id="329" class="faq-answer px-5 md:px-6">
+                            <p data-id="330" class="text-sm text-foreground-600 leading-relaxed pb-5 md:pb-6">Choose a set number of hours per month. We handle task prioritization and reporting. Unused hours do not roll over.</p>
+                        </div>
+                    </div>
+                    <div data-id="331" class="faq-item bg-white rounded-2xl">
+                        <button data-id="332" class="faq-toggle w-full flex items-center justify-between p-5 md:p-6 text-left cursor-pointer">
+                            <span data-id="333" class="font-medium text-foreground-900 pr-4">Can I switch plans?</span>
+                            <i data-id="334" data-lucide="chevron-down" class="w-5 h-5 text-brown-500 flex-shrink-0 faq-chevron transition-transform duration-300"></i>
+                        </button>
+                        <div data-id="335" class="faq-answer px-5 md:px-6">
+                            <p data-id="336" class="text-sm text-foreground-600 leading-relaxed pb-5 md:pb-6">Absolutely. You can upgrade, downgrade, or switch service categories at any time with 30 days notice.</p>
+                        </div>
+                    </div>
+                    <div data-id="337" class="faq-item bg-white rounded-2xl">
+                        <button data-id="338" class="faq-toggle w-full flex items-center justify-between p-5 md:p-6 text-left cursor-pointer">
+                            <span data-id="339" class="font-medium text-foreground-900 pr-4">Do you offer custom packages?</span>
+                            <i data-id="340" data-lucide="chevron-down" class="w-5 h-5 text-brown-500 flex-shrink-0 faq-chevron transition-transform duration-300"></i>
+                        </button>
+                        <div data-id="341" class="faq-answer px-5 md:px-6">
+                            <p data-id="342" class="text-sm text-foreground-600 leading-relaxed pb-5 md:pb-6">Yes! We can combine services across categories into a single retainer. Contact us for a custom quote.</p>
+                        </div>
+                    </div>
+                    <div data-id="343" class="faq-item bg-white rounded-2xl">
+                        <button data-id="344" class="faq-toggle w-full flex items-center justify-between p-5 md:p-6 text-left cursor-pointer">
+                            <span data-id="345" class="font-medium text-foreground-900 pr-4">What's your turnaround time?</span>
+                            <i data-id="346" data-lucide="chevron-down" class="w-5 h-5 text-brown-500 flex-shrink-0 faq-chevron transition-transform duration-300"></i>
+                        </button>
+                        <div data-id="347" class="faq-answer px-5 md:px-6">
+                            <p data-id="348" class="text-sm text-foreground-600 leading-relaxed pb-5 md:pb-6">Most tasks are completed within 24–48 hours. Rush requests are available for an additional fee.</p>
+                        </div>
+                    </div>
+                    <div data-id="349" class="faq-item bg-white rounded-2xl">
+                        <button data-id="350" class="faq-toggle w-full flex items-center justify-between p-5 md:p-6 text-left cursor-pointer">
+                            <span data-id="351" class="font-medium text-foreground-900 pr-4">How do I get started?</span>
+                            <i data-id="352" data-lucide="chevron-down" class="w-5 h-5 text-brown-500 flex-shrink-0 faq-chevron transition-transform duration-300"></i>
+                        </button>
+                        <div data-id="353" class="faq-answer px-5 md:px-6">
+                            <p data-id="354" class="text-sm text-foreground-600 leading-relaxed pb-5 md:pb-6">Simply reach out through our contact section. We'll schedule a free discovery call to understand your needs and recommend the right package.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact / CTA Section -->
+        <section data-id="355" id="contact" class="py-16 md:py-24 bg-sage-50">
+            <div data-id="356" class="max-w-2xl mx-auto px-5 md:px-8">
+                <div data-id="357" class="text-center mb-10">
+                    <p data-id="358" class="text-xs font-medium uppercase tracking-widest text-sage-700 mb-3">Let's Talk</p>
+                    <h2 data-id="359" class="font-display text-2xl md:text-4xl text-foreground-900 mb-4">Ready to Get Started?</h2>
+                    <p data-id="360" class="text-foreground-600">Schedule a free consultation and let's find the perfect plan for your business.</p>
+                </div>
+                <div data-id="361" class="text-center">
+                    <a data-id="362" href="mailto:eleveneighteensolutions@gmail.com?subject=Inquiry%20from%20Website%20-%20ElevenEighteen%20Solutions" class="inline-flex items-center justify-center gap-2.5 bg-brown-500 hover:bg-brown-600 text-white font-semibold px-10 py-4.5 rounded-xl transition-colors text-base md:text-lg shadow-lg hover:shadow-xl" style="padding-top: 1.125rem; padding-bottom: 1.125rem;">
+                        <i data-id="363" data-lucide="mail" class="w-5 h-5"></i>
+                        Email Us to Get Started
+                    </a>
+                    <p data-id="364" class="mt-5 text-sm text-foreground-450">eleveneighteensolutions@gmail.com</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer data-id="365" class="bg-[#111111] py-10 md:py-12">
+        <div data-id="366" class="max-w-7xl mx-auto px-5 md:px-8">
+            <div data-id="367" class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div data-id="368" class="flex items-center gap-2.5">
+                    <i data-id="369" data-lucide="briefcase-business" class="w-5 h-5 text-sage-400"></i>
+                    <span data-id="370" class="font-display text-sage-50">ElevenEighteen Solutions LLC</span>
+                </div>
+                <div data-id="371" class="flex flex-wrap justify-center gap-6">
+                    <a data-id="372" href="#services" class="text-sm text-sage-400 hover:text-sage-50 transition-colors">Services</a>
+                    <a data-id="373" href="#pricing" class="text-sm text-sage-400 hover:text-sage-50 transition-colors">Pricing</a>
+                    <a data-id="374" href="#faq" class="text-sm text-sage-400 hover:text-sage-50 transition-colors">FAQ</a>
+                    <a data-id="375" href="#contact" class="text-sm text-sage-400 hover:text-sage-50 transition-colors">Contact</a>
+                </div>
+            </div>
+            <div data-id="376" class="mt-8 pt-6 border-t border-[#2A2A2A] text-center">
+                <p data-id="377" class="text-xs text-sage-500">Made by Copilot</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+
+      // Sticky nav scroll behavior
+      const nav = document.getElementById('main-nav');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 40) {
+          nav.classList.add('nav-scrolled');
+        } else {
+          nav.classList.remove('nav-scrolled');
+        }
+      });
+
+      // Mobile menu
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+      mobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      });
+
+      mobileMenuClose.addEventListener('click', function() {
+        mobileMenu.classList.add('hidden');
+        document.body.style.overflow = '';
+      });
+
+      document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
+        link.addEventListener('click', function() {
+          mobileMenu.classList.add('hidden');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // Category filter buttons
+      document.querySelectorAll('.cat-filter-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const filter = btn.dataset.filter;
+
+          // Update active button styling
+          document.querySelectorAll('.cat-filter-btn').forEach(function(b) {
+            b.classList.remove('bg-brown-500', 'text-white');
+            b.classList.add('bg-white', 'text-foreground-900');
+          });
+          btn.classList.remove('bg-white', 'text-foreground-900');
+          btn.classList.add('bg-brown-500', 'text-white');
+
+          // Show/hide categories
+          document.querySelectorAll('.pricing-category').forEach(function(cat) {
+            if (filter === 'all' || cat.dataset.category === filter) {
+              cat.style.display = '';
+              // Re-trigger fade animation
+              cat.classList.remove('visible');
+              requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                  cat.classList.add('visible');
+                });
+              });
+            } else {
+              cat.style.display = 'none';
+            }
+          });
+
+          // Scroll to pricing section if not in view
+          if (filter !== 'all') {
+            const target = document.querySelector('[data-category="' + filter + '"]');
+            if (target) {
+              const offset = nav.offsetHeight + 20;
+              const top = target.getBoundingClientRect().top + window.scrollY - offset;
+              window.scrollTo({ top: top, behavior: 'smooth' });
+            }
+          }
+        });
+      });
+
+      // FAQ accordion
+      document.querySelectorAll('.faq-toggle').forEach(function(toggle) {
+        toggle.addEventListener('click', function() {
+          const item = toggle.closest('.faq-item');
+          const answer = item.querySelector('.faq-answer');
+          const chevron = item.querySelector('.faq-chevron');
+          const isOpen = answer.classList.contains('open');
+
+          // Close all others
+          document.querySelectorAll('.faq-answer').forEach(function(a) { a.classList.remove('open'); });
+          document.querySelectorAll('.faq-chevron').forEach(function(c) { c.style.transform = ''; });
+
+          if (!isOpen) {
+            answer.classList.add('open');
+            chevron.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+      // Fade-in on scroll (Intersection Observer)
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.fade-section').forEach(function(el) {
+        observer.observe(el);
+      });
+    </script>
+</body>
+</html>
